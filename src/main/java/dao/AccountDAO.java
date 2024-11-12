@@ -1,11 +1,19 @@
 package dao;
 
 import dto.AccountDTO;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.Repository;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 
-import java.util.List;
+@ApplicationScoped
+public class AccountDAO {
 
-public interface AccountDAO extends CrudRepository<AccountDTO, Long> {
-    AccountDTO findByUsernameAndPassword(String username, String password);
+    @Inject
+    EntityManager em;
+
+    @Transactional
+    public AccountDTO findByUsernameAndPassword(String username, String password) {
+        return em.createQuery("select username, password from account where username= :value1 and password=:value2", AccountDTO.class).setParameter("value1", username).setParameter("value2", password).getSingleResult();
+    }
 }
