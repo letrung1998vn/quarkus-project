@@ -9,12 +9,21 @@ import static org.hamcrest.CoreMatchers.is;
 @QuarkusTest
 class GreetingResourceTest {
     @Test
-    void testHelloEndpoint() {
+    void testLoginEndpoint() {
         given()
-          .when().get("/hello")
+          .when().get("/login?userName=admin&&password=admin")
           .then()
              .statusCode(200)
-             .body(is("Hello from Quarkus REST"));
+             .body(is("Welcome admin"));
+    }
+
+    @Test
+    void testLoginEndpointFail() {
+        given()
+                .when().get("/login?userName=admin&&password=ad")
+                .then()
+                .statusCode(400)
+                .body(is("Incorrect username or password"));
     }
 
 }

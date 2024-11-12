@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS account(
-username varchar(50) PRIMARY KEY,
+userName varchar(50) PRIMARY KEY,
 password varchar(50)
 );
-insert into account(UserName,Password)
+insert into account(userName,password)
 values ('admin','admin'),('user','user');

@@ -1,7 +1,7 @@
 package org.acme;
 
-import dao.AccountDAO;
-import dto.AccountDTO;
+import org.acme.dao.AccountDAO;
+import org.acme.dto.AccountDTO;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -21,10 +21,10 @@ public class GreetingResource {
     @Path("/login")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public RestResponse<String> hello(@QueryParam("userName") String userName, @QueryParam("password") String password) {
+    public RestResponse<String> login(@QueryParam("userName") String userName, @QueryParam("password") String password) {
         AccountDTO dto = dao.findByUsernameAndPassword(userName, password);
         if (dto != null) {
-            return RestResponse.ResponseBuilder.ok("Welcome " + userName, MediaType.TEXT_PLAIN_TYPE).build();
+            return RestResponse.ResponseBuilder.ok("Welcome " + dto.getUserName(), MediaType.TEXT_PLAIN_TYPE).build();
         } else {
             return RestResponse.ResponseBuilder.create(RestResponse.Status.BAD_REQUEST, "Incorrect username or password").build();
         }

@@ -1,4 +1,4 @@
-package dto;
+package org.acme.dto;
 
 
 import jakarta.persistence.Entity;
@@ -16,7 +16,7 @@ import lombok.Setter;
 public class AccountDTO {
 
     @Id
-    private String username;
+    private String userName;
     private String password;
 
 }
