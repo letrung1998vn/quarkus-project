@@ -10,11 +10,11 @@ import jakarta.ws.rs.core.MediaType;
 import org.jboss.resteasy.reactive.RestResponse;
 
 @Path("")
-public class GreetingResource {
+public class LoginResource {
 
     AccountDAO dao;
 
-    public GreetingResource(AccountDAO dao) {
+    public LoginResource(AccountDAO dao) {
         this.dao = dao;
     }
 

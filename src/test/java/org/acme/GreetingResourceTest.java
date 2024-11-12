@@ -10,8 +10,8 @@ import static org.hamcrest.CoreMatchers.is;
 class GreetingResourceTest {
     @Test
     void testLoginEndpoint() {
-        given()
-          .when().get("/login?userName=admin&&password=admin")
+        given().queryParam("userName","admin").queryParam("password","admin")
+          .when().get("/login")
           .then()
              .statusCode(200)
              .body(is("Welcome admin"));
@@ -19,8 +19,8 @@ class GreetingResourceTest {
 
     @Test
     void testLoginEndpointFail() {
-        given()
-                .when().get("/login?userName=admin&&password=ad")
+        given().queryParam("userName","admin").queryParam("password","ad")
+                .when().get("/login")
                 .then()
                 .statusCode(400)
                 .body(is("Incorrect username or password"));
