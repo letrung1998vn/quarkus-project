@@ -34,14 +34,12 @@ public class LoginResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public RestResponse<String> login(@NotNull @Valid LoginBean login) {
-        List<AccountDTO> dto = dao.findByUsernameAndPassword(login.getUserName());
-        if (dto.isEmpty()) {
+        AccountDTO dto = dao.findByUsernameAndPassword(login.getUserName());
+        if (dto == null) {
             return RestResponse.ResponseBuilder.create(RestResponse.Status.BAD_REQUEST, "Incorrect username or password").build();
         } else {
-            for (AccountDTO account : dto) {
-                if(BcryptUtil.matches(login.getPassword(),account.getPassword())){
-                    return RestResponse.ResponseBuilder.ok("Welcome " + account.getUserName(), MediaType.TEXT_PLAIN_TYPE).build();
-                }
+            if(BcryptUtil.matches(login.getPassword(),dto.getPassword())){
+                return RestResponse.ResponseBuilder.ok("Welcome " + dto.getUserName(), MediaType.TEXT_PLAIN_TYPE).build();
             }
             return RestResponse.ResponseBuilder.create(RestResponse.Status.BAD_REQUEST, "Incorrect username or password").build();
         }

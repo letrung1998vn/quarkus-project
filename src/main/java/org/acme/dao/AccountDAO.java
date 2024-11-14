@@ -15,7 +15,7 @@ public class AccountDAO {
     EntityManager em;
 
     @Transactional
-    public List<AccountDTO> findByUsernameAndPassword(String username) {
-        return em.createQuery("select userName, password from account where userName= :value1 ", AccountDTO.class).setParameter("value1",username).getResultList();
+    public AccountDTO findByUsernameAndPassword(String username) {
+        return em.createQuery("select userName, password from account where userName= :value1 ", AccountDTO.class).setParameter("value1",username).getSingleResult();
     }
 }
