@@ -8,13 +8,10 @@ import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import lombok.NonNull;
 import org.acme.bean.LoginBean;
 import org.acme.dao.AccountDAO;
 import org.acme.dto.AccountDTO;
 import org.jboss.resteasy.reactive.RestResponse;
-
-import java.util.List;
 
 @Path("/auth")
 public class LoginResource {
@@ -25,9 +22,6 @@ public class LoginResource {
         this.dao = dao;
     }
 
-    public static void main(String[] args) {
-        System.out.println(BcryptUtil.bcryptHash("Admin12345"));
-    }
 
     @Path("/login")
     @POST
@@ -38,7 +32,7 @@ public class LoginResource {
         if (dto == null) {
             return RestResponse.ResponseBuilder.create(RestResponse.Status.BAD_REQUEST, "Incorrect username or password").build();
         } else {
-            if(BcryptUtil.matches(login.getPassword(),dto.getPassword())){
+            if (BcryptUtil.matches(dto.getPassword(), login.getPassword())) {
                 return RestResponse.ResponseBuilder.ok("Welcome " + dto.getUserName(), MediaType.TEXT_PLAIN_TYPE).build();
             }
             return RestResponse.ResponseBuilder.create(RestResponse.Status.BAD_REQUEST, "Incorrect username or password").build();
