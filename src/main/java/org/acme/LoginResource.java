@@ -32,7 +32,7 @@ public class LoginResource {
         if (dto == null) {
             return RestResponse.ResponseBuilder.create(RestResponse.Status.BAD_REQUEST, "Incorrect username or password").build();
         } else {
-            if (BcryptUtil.matches(dto.getPassword(), login.getPassword())) {
+            if (BcryptUtil.matches(login.getPassword(), dto.getPassword())) {
                 return RestResponse.ResponseBuilder.ok("Welcome " + dto.getUserName(), MediaType.TEXT_PLAIN_TYPE).build();
             }
             return RestResponse.ResponseBuilder.create(RestResponse.Status.BAD_REQUEST, "Incorrect username or password").build();
