@@ -26,7 +26,6 @@ public class LoginResource {
     @Path("/login")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public RestResponse<String> login(@NotNull @Valid LoginBean login) {
         AccountDTO dto = dao.findByUsernameAndPassword(login.getUserName());
         if (dto == null) {

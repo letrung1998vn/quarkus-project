@@ -16,6 +16,11 @@ public class AccountDAO {
 
     @Transactional
     public AccountDTO findByUsernameAndPassword(String username) {
-        return em.createQuery("select userName, password from account where userName= :value1 ", AccountDTO.class).setParameter("value1",username).getSingleResult();
+        List<AccountDTO> account = em.createQuery("select userName, password from account where userName= :value1 ", AccountDTO.class).setParameter("value1", username).getResultList();
+        if (!account.isEmpty()) {
+            return account.getFirst();
+        } else {
+            return null;
+        }
     }
 }
